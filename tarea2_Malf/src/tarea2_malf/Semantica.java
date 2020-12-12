@@ -7,7 +7,7 @@ package tarea2_malf;
 
 /**
  *
- * @author aylin
+ * @author ayline
  */
 public class Semantica {
     

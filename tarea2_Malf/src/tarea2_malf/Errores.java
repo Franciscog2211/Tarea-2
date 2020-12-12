@@ -7,8 +7,11 @@ package tarea2_malf;
 
 /**
  *
- * @author aylin
+ * @author ayline
  */
 public class Errores {
     
+    public boolean variableIniciada(String variable){
+        return false;
+    }
 }
