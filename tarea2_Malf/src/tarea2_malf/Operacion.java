@@ -29,7 +29,6 @@ public class Operacion {
         if(caracteres[1].contains("=")){
             //ASIGNACION DE VALOR, EN CASO DE SER OTRA VARIABLE O SER DIGITO
             if(3==caracteres.length && caracteres[2].contains("$")){
-                Tarea2_Malf.variables.add(caracteres[2]);
                 int n=Tarea2_Malf.variables.indexOf(caracteres[2]);
                 int iV=Tarea2_Malf.variables.indexOf(caracteres[0]);
                 if(n>=0){
@@ -42,6 +41,7 @@ public class Operacion {
             if(3==caracteres.length && Character.isDigit(caracteres[2].charAt(0))){
                 int iV=Tarea2_Malf.variables.indexOf(caracteres[0]);
                 Tarea2_Malf.valores.set(iV,BigInteger.valueOf(Integer.parseInt(caracteres[2])));
+                System.out.println("valor: "+Integer.parseInt(caracteres[2]));
             }
             //EN CASO DE OPERACIONES
             if(5==caracteres.length){
