@@ -41,7 +41,6 @@ public class Operacion {
             if(3==caracteres.length && Character.isDigit(caracteres[2].charAt(0))){
                 int iV=Tarea2_Malf.variables.indexOf(caracteres[0]);
                 Tarea2_Malf.valores.set(iV,BigInteger.valueOf(Integer.parseInt(caracteres[2])));
-                System.out.println("valor: "+Integer.parseInt(caracteres[2]));
             }
             //EN CASO DE OPERACIONES
             if(5==caracteres.length){
@@ -50,7 +49,6 @@ public class Operacion {
                 BigInteger valor2= new BigInteger("0");
                 if(caracteres[2].contains("$")){
                     int n=Tarea2_Malf.variables.indexOf(caracteres[2]);
-                    System.out.println("n: "+n);
                     if(n>=0){
                         valor1=Tarea2_Malf.valores.get(n);
                     }
