@@ -33,15 +33,19 @@ public class Tarea2_Malf {
             Semantica semantica = new Semantica();
             Errores errores = new Errores();
             if(!sintaxis.analisisExpresion(expresion)){
-                System.out.println("terminar programa");
+                System.out.println("Error de sintaxis");
+                return;
             }
             else{
-                System.out.println("programa sigue");
+                System.out.println("Sin error de sintaxis");
             }
             expresiones.add(expresion);
             if(expresion.contains("+") || expresion.contains("-") || expresion.contains("=") || expresion.contains("*") 
                     || expresion.contains("/") || expresion.contains("%")){
-                Operacion operacion = new Operacion(expresion);
+                Operacion operacion = new Operacion();
+                if(!(operacion.Operacion(expresion))){
+                    return;
+                }
             }          
             for(int i=0; i<variables.size(); i++){
                 System.out.println("valor de: "+variables.get(i)+" es "+valores.get(i));

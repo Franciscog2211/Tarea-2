@@ -16,7 +16,11 @@ public class Operacion {
     String expresion;
     String[] caracteres;
 
-    public Operacion(String expresion) {
+    public Operacion() {
+    }
+
+    
+    public boolean Operacion(String expresion) {
         this.expresion = expresion;
         this.caracteres = expresion.split(" ");
         BigInteger resultado;
@@ -36,6 +40,7 @@ public class Operacion {
                 }
                 else{
                     System.out.println("No se encontro la variable");
+                    return false;
                 }
             }
             if(4==caracteres.length && Character.isDigit(caracteres[2].charAt(0))){
@@ -54,6 +59,7 @@ public class Operacion {
                     }
                     else{
                         System.out.println("No se encontro la variable");
+                        return false;
                     }
                 }
                 if(Character.isDigit(caracteres[2].charAt(0))){
@@ -66,6 +72,7 @@ public class Operacion {
                     }
                     else{
                         System.out.println("No se encontro la variable");
+                        return false;
                     }
                 }
                 if(Character.isDigit(caracteres[4].charAt(0))){
@@ -91,6 +98,7 @@ public class Operacion {
                 }   
             }         
         }
+        return true;
     }
     
     public BigInteger asignacion(BigInteger variable){
