@@ -32,14 +32,17 @@ public class Tarea2_Malf {
             Sintaxis sintaxis = new Sintaxis();
             Semantica semantica = new Semantica();
             Errores errores = new Errores();
-            if(!sintaxis.esVariable(expresion)){
+            if(!sintaxis.analisisExpresion(expresion)){
                 System.out.println("terminar programa");
             }
             else{
                 System.out.println("programa sigue");
             }
             expresiones.add(expresion);
-            Operacion operacion = new Operacion(expresion);
+            if(expresion.contains("+") || expresion.contains("-") || expresion.contains("=") || expresion.contains("*") 
+                    || expresion.contains("/") || expresion.contains("%")){
+                Operacion operacion = new Operacion(expresion);
+            }          
             for(int i=0; i<variables.size(); i++){
                 System.out.println("valor de: "+variables.get(i)+" es "+valores.get(i));
             }
@@ -47,5 +50,4 @@ public class Tarea2_Malf {
         while(terminar);
       
     }
-    
 }

@@ -11,16 +11,49 @@ package tarea2_malf;
  */
 public class Sintaxis {
     
-    public boolean esVariable(String variable){
-        String[] caracteres = variable.split("");
-        for(int i=0; i<caracteres.length; i++){
-            if(caracteres[i].equals("$")){
-                if(!(i+1<caracteres.length && Character.isLetter(caracteres[i+1].charAt(0)))){
+    public boolean analisisExpresion(String expresion){
+        String[] caracteres = expresion.split(" ");
+        if(!(caracteres[caracteres.length-1].charAt(caracteres[caracteres.length-1].length()-1)==';')){
+            return false;
+        }
+        for(int i=caracteres.length-1; i>=0; i--){
+            if(caracteres[i].contains("$")){
+                if(!(caracteres[i].charAt(0)=='$')){
                     return false;
                 }
-                if(i-1>=0 && Character.isLetter(caracteres[i-1].charAt(0))){
-                    return false;
+                for(int a=caracteres[i].length()-1;a>0;a--){
+                    if(!(Character.isLetterOrDigit(caracteres[i].charAt(a)))){
+                        return false;
+                    }
                 }
+            }
+            if(!(caracteres[i].contains("$"))){
+                int sum=0;
+                if(caracteres[i].length()==1 && caracteres[i].equals("+")){
+                   sum++;
+                }
+                if(caracteres[i].length()==1 && caracteres[i].equals("-")){
+                   sum++;
+                }
+                if(caracteres[i].length()==1 && caracteres[i].equals("*")){
+                   sum++; 
+                }
+                if(caracteres[i].length()==1 && caracteres[i].equals("/")){
+                   sum++;
+                }
+                if(caracteres[i].length()==1 && caracteres[i].equals("%")){
+                   sum++;
+                }
+                if(caracteres[i].length()==1 && caracteres[i].equals("=")){
+                   sum++;
+                }
+                if(sum==0){
+                    for(int a=caracteres[i].length()-1;a>0;a--){
+                        if(!(Character.isDigit(caracteres[i].charAt(a)))){
+                            return false;
+                        }
+                    }
+                }     
             }
         }
         return true;

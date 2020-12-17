@@ -28,7 +28,7 @@ public class Operacion {
         }
         if(caracteres[1].contains("=")){
             //ASIGNACION DE VALOR, EN CASO DE SER OTRA VARIABLE O SER DIGITO
-            if(3==caracteres.length && caracteres[2].contains("$")){
+            if(4==caracteres.length && caracteres[2].contains("$")){
                 int n=Tarea2_Malf.variables.indexOf(caracteres[2]);
                 int iV=Tarea2_Malf.variables.indexOf(caracteres[0]);
                 if(n>=0){
@@ -38,12 +38,12 @@ public class Operacion {
                     System.out.println("No se encontro la variable");
                 }
             }
-            if(3==caracteres.length && Character.isDigit(caracteres[2].charAt(0))){
+            if(4==caracteres.length && Character.isDigit(caracteres[2].charAt(0))){
                 int iV=Tarea2_Malf.variables.indexOf(caracteres[0]);
                 Tarea2_Malf.valores.set(iV,BigInteger.valueOf(Integer.parseInt(caracteres[2])));
             }
             //EN CASO DE OPERACIONES
-            if(5==caracteres.length){
+            if(6==caracteres.length){
                 //CASO DE LA SUMA
                 BigInteger valor1= new BigInteger("0");
                 BigInteger valor2= new BigInteger("0");
