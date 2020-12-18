@@ -75,17 +75,17 @@ public class Parser {
 	
 	public boolean parseCondicion(String condicion) {//falta condicionarlo con un numero
 		for(int i=0; i<condicion.length(); i++){
-			if(condicion.charAt(i)=='<' || condicion.charAt(i)=='>' || condicion.charAt(i)=='=' || condicion.charAt(i)=='!') {
+			if(condicion.charAt(i)=='<' || condicion.charAt(i)=='>' || (condicion.charAt(i)=='=' && condicion.charAt(i+1)=='=') || condicion.charAt(i)=='!') {
 				if(!existeVariable(condicion.substring(0,i-1))) {
 					return false;
 				}
 				if(condicion.charAt(i+1)=='=') {
-					if(!existeVariable(condicion.substring(i+2,condicion.length()-1))) {
+					if(!existeVariable(condicion.substring(i+3,condicion.length()))) {
 						return false;
 					}
 				}
 				else {
-					if(!existeVariable(condicion.substring(i+1,condicion.length()-1))) {
+					if(!existeVariable(condicion.substring(i+2,condicion.length()))) {
 						return false;
 					}
 				}

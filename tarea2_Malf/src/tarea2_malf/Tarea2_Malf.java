@@ -33,14 +33,25 @@ public class Tarea2_Malf {
             Sintaxis sintaxis = new Sintaxis();
             Semantica semantica = new Semantica();
             Errores errores = new Errores();
+            variables.add("$a");
+            valores.add(new BigInteger("3"));
+            variables.add("$b");
+            valores.add(new BigInteger("4"));
+            Parser parse = new Parser();
+            if(parse.parseCondicion("$a <= $b")) {
+            	System.out.println("TRUE");
+            }
+            else {
+            	System.out.println("FALSE");
+            }
             if(!sintaxis.analisisExpresion(expresion)){
                 System.out.println("Error de sintaxis");
-                return;
+                //return;
+                //arreglar para funcion read y write (ambos dicen error de sintaxis)
             }
             else{
                 System.out.println("Sin error de sintaxis");
             }
-            System.out.println("Cont.Cond: "+contieneCondicion(expresion));
             expresiones.add(expresion);
             if(expresion.contains("+") || expresion.contains("-") || expresion.contains("=") || expresion.contains("*") 
                     || expresion.contains("/") || expresion.contains("%")){
@@ -67,18 +78,13 @@ public class Tarea2_Malf {
     		if(partes[i].equals("read")) {
     			String [] caracteres; 
     	    	caracteres = partes[i+1].split("");
-    	    	BigInteger var = leer();
-    	    	variables.add(partes[i+1].substring(1, partes[i+1].length())); //guardamos la variable entre $ y ;
-    	    	valores.add(var); //guardamos el valor de la variable
+    	    	BigInteger valor = leer();
+    	    	System.out.println("LEEEEEEER: "+partes[i+1].substring(0, partes[i+1].length()-1));
+    	    	variables.add(partes[i+1].substring(0, partes[i+1].length()-1)); //guardamos la variable entre $ y ;
+    	    	valores.add(valor); //guardamos el valor de la variable
     		}
-    		if(partes[i].equals("write")) {
-    			for(int j=0; j<variables.size() ;j++) {
-    				System.out.println("-----");
-    				if(partes[i+1].substring(1, partes[i+1].length()).equals(variables.get(j))) {
-    					System.out.println(variables.get(j)+" = "+valores.get(j));
-    				}
-    			}
-    			
+    		if(partes[i].equals("write")) {//falta implementacion de funcion de operacion
+    			System.out.println("Valor de "+partes[i+1]+" = " +Operacion.operacionWrite(partes[i+1]));
     		}
     	}
     }

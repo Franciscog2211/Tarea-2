@@ -129,4 +129,9 @@ public class Operacion {
         BigInteger resultado;
         return resultado=valor1.remainder(valor2);
     }
+    public static BigInteger operacionWrite(String operacion) {
+    	BigInteger resultado = new BigInteger("0");
+    	return resultado;
+    	
+    }
 }
