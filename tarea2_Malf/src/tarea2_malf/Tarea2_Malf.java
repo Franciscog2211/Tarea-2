@@ -39,6 +39,7 @@ public class Tarea2_Malf {
             else{
                 System.out.println("programa sigue");
             }
+            System.out.println("Cont.Cond: "+contieneCondicion(expresion));
             expresiones.add(expresion);
             if (expresion.contains("read") || expresion.contains("write")) {
             	entradaSalida(expresion);
@@ -60,8 +61,8 @@ public class Tarea2_Malf {
     			String [] caracteres; 
     	    	caracteres = partes[i+1].split("");
     	    	BigInteger var = leer();
-    	    	variables.add(partes[i+1].substring(1, partes[i+1].length()));
-    	    	valores.add(var);
+    	    	variables.add(partes[i+1].substring(1, partes[i+1].length())); //guardamos la variable entre $ y ;
+    	    	valores.add(var); //guardamos el valor de la variable
     		}
     		if(partes[i].equals("write")) {
     			for(int j=0; j<variables.size() ;j++) {
@@ -75,6 +76,10 @@ public class Tarea2_Malf {
     	}
     }
 
+    public void write(String comando) {
+    	
+    }
+    
 	private static BigInteger leer() {
 		Scanner read = new Scanner(System.in);
 		String num = "a";
@@ -90,15 +95,69 @@ public class Tarea2_Malf {
 			System.out.println("Solo puede ingresar numeros");
 			return false;
 		}
-		for (int i=0; i <cadena.length (); i++) { 
+		int i=0;
+		if (cadena.charAt(0)=='-') {
+			if (cadena.length()==1) {
+				System.out.println("Solo puede ingresar numeros");
+				return false;
+			}
+			i=1;
+		}
+		while (i <cadena.length ()) { 
 			char c = cadena.charAt(i);
 			if(c<'0' || c>'9') {
 				System.out.println("Solo puede ingresar numeros");
 				return false;
 			}
+			i++;
 		}
-		System.out.println("Perfecto"+cadena);
+		System.out.println("Perfecto "+cadena);
 		return true;
 	}
-	
+	private static int contieneCondicion(String cadena){
+		for (int i=0; i <cadena.length (); i++) { 
+			char c = cadena.charAt(i);
+			switch(c){
+            case '<':
+                if (cadena.charAt(i+1)=='=') {
+                	System.out.println("La condicion es <=");
+                	return 3;
+                }
+                else {
+                	System.out.println("La condicion es <");
+                }
+                return 1;
+            case '>':
+            	
+            	if (cadena.charAt(i+1)=='=') {
+            		System.out.println("La condicion es >=");
+                	return 4;
+                }
+            	else {
+            		System.out.println("La condicion es >");
+            	}
+                return 2;
+            case '=':
+                if (cadena.charAt(i+1)=='=') {
+                	System.out.println("La condicion es ==");
+                	return 5;
+                }
+                else {
+                	System.out.println("La condicion es =");
+                }
+                break;
+            case '!':
+               
+                if (cadena.charAt(i+1)=='=') {
+                	System.out.println("La condicion es !=");
+                	return 6;
+                }
+                else {
+                	 System.out.println("La condicion es !");
+                }
+                break;
+			}
+		}
+		return 0;
+	}
 }
