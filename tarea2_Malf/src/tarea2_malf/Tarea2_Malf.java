@@ -38,7 +38,7 @@ public class Tarea2_Malf {
             variables.add("$b");
             valores.add(new BigInteger("4"));
             Parser parse = new Parser();
-            if(parse.parseCondicion("$a <= $b")) {
+            if(parse.parseWhile("while ($i <= $n) do")) {
             	System.out.println("TRUE");
             }
             else {
