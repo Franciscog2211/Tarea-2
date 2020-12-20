@@ -50,10 +50,10 @@ public class Operacion {
             //EN CASO DE OPERACIONES
             else{
                 ArrayList<String> salida= new ArrayList<>();
-                for(int a=caracteres.length-1; a>=2; a--){
+                for(int i=2; i<caracteres.length-1; i++){
                     BigInteger valor= new BigInteger("0");
-                    if(caracteres[a].contains("$")){
-                        int n=Tarea2_Malf.variables.indexOf(caracteres[a]);
+                    if(caracteres[i].contains("$")){
+                        int n=Tarea2_Malf.variables.indexOf(caracteres[i]);
                         if(n>=0){
                             valor=Tarea2_Malf.valores.get(n);
                             salida.add(String.valueOf(valor));
@@ -63,23 +63,23 @@ public class Operacion {
                             return false;
                         }
                     }
-                    if(Character.isDigit(caracteres[a].charAt(0))){
-                        valor=BigInteger.valueOf(Integer.parseInt(caracteres[a]));
+                    if(Character.isDigit(caracteres[i].charAt(0))){
+                        valor=BigInteger.valueOf(Integer.parseInt(caracteres[i]));
                         salida.add(String.valueOf(valor));
                     }
-                    if(caracteres[a].equals("+")){
+                    if(caracteres[i].equals("+")){
                         salida.add("+");
                     }
-                    if(caracteres[a].equals("-")){
+                    if(caracteres[i].equals("-")){
                         salida.add("-");
                     }
-                    if(caracteres[a].equals("*")){
+                    if(caracteres[i].equals("*")){
                         salida.add("*");
                     }
-                    if(caracteres[a].equals("/")){
+                    if(caracteres[i].equals("/")){
                         salida.add("/");
                     }
-                    if(caracteres[a].equals("%")){
+                    if(caracteres[i].equals("%")){
                         salida.add("%");
                     }
                     if(salida.size()==3){
