@@ -48,61 +48,81 @@ public class Operacion {
                 Tarea2_Malf.valores.set(iV,BigInteger.valueOf(Integer.parseInt(caracteres[2])));
             }
             //EN CASO DE OPERACIONES
-            if(6==caracteres.length){
-                //CASO DE LA SUMA
-                BigInteger valor1= new BigInteger("0");
-                BigInteger valor2= new BigInteger("0");
-                if(caracteres[2].contains("$")){
-                    int n=Tarea2_Malf.variables.indexOf(caracteres[2]);
-                    if(n>=0){
-                        valor1=Tarea2_Malf.valores.get(n);
+            else{
+                ArrayList<String> salida= new ArrayList<>();
+                System.out.println("llegue hasta aqui");
+                for(int a=caracteres.length-1; a>=2; a--){
+                    System.out.println("valor de a: "+a);
+                    System.out.println("entre aqui al for ");
+                    BigInteger valor= new BigInteger("0");
+                    if(caracteres[a].contains("$")){
+                        int n=Tarea2_Malf.variables.indexOf(caracteres[a]);
+                        if(n>=0){
+                            valor=Tarea2_Malf.valores.get(n);
+                            salida.add(String.valueOf(valor));
+                        }
+                        else{
+                            System.out.println("No se encontro la variable");
+                            return false;
+                        }
                     }
-                    else{
-                        System.out.println("No se encontro la variable");
-                        return false;
+                    if(Character.isDigit(caracteres[a].charAt(0))){
+                        valor=BigInteger.valueOf(Integer.parseInt(caracteres[a]));
+                        salida.add(String.valueOf(valor));
                     }
-                }
-                if(Character.isDigit(caracteres[2].charAt(0))){
-                    valor1=BigInteger.valueOf(Integer.parseInt(caracteres[2]));
-                }
-                if(caracteres[4].contains("$")){
-                    int n=Tarea2_Malf.variables.indexOf(caracteres[4]);
-                    if(n>=0){
-                        valor2=Tarea2_Malf.valores.get(n);
+                    if(caracteres[a].equals("+")){
+                        salida.add("+");
                     }
-                    else{
-                        System.out.println("No se encontro la variable");
-                        return false;
+                    if(caracteres[a].equals("-")){
+                        salida.add("-");
                     }
-                }
-                if(Character.isDigit(caracteres[4].charAt(0))){
-                    valor2=BigInteger.valueOf(Integer.parseInt(caracteres[4]));
+                    if(caracteres[a].equals("*")){
+                        salida.add("*");
+                    }
+                    if(caracteres[a].equals("/")){
+                        salida.add("/");
+                    }
+                    if(caracteres[a].equals("%")){
+                        salida.add("%");
+                    }
+                    System.out.println("salida: "+salida);
+                    if(salida.size()==3){
+                        String valor1= salida.get(0);
+                        String valor2= salida.get(2);
+                        BigInteger resultado1;
+                        int sum=0;
+                        if(salida.size()==3 && salida.get(1).equals("+")){
+                            resultado1=suma(BigInteger.valueOf(Integer.parseInt(valor1)),BigInteger.valueOf(Integer.parseInt(valor2)));
+                            salida.removeAll(salida);
+                            salida.add(String.valueOf(resultado1));
+                        }
+                        if(salida.size()==3 && salida.get(1).equals("-")){
+                            resultado1=resta(BigInteger.valueOf(Integer.parseInt(valor1)),BigInteger.valueOf(Integer.parseInt(valor2)));
+                            salida.removeAll(salida);
+                            salida.add(String.valueOf(resultado1));
+                        }
+                        if(salida.size()==3 && salida.get(1).equals("*")){
+                            resultado1=multiplicacion(BigInteger.valueOf(Integer.parseInt(valor1)),BigInteger.valueOf(Integer.parseInt(valor2)));
+                            salida.removeAll(salida);
+                            salida.add(String.valueOf(resultado1));
+                        }
+                        if(salida.size()==3 && salida.get(1).equals("/")){
+                            resultado1=division(BigInteger.valueOf(Integer.parseInt(valor1)),BigInteger.valueOf(Integer.parseInt(valor2)));
+                            salida.removeAll(salida);
+                            salida.add(String.valueOf(resultado1));
+                        }
+                        if(salida.size()==3 && salida.get(1).equals("%")){
+                            resultado1=resto(BigInteger.valueOf(Integer.parseInt(valor1)),BigInteger.valueOf(Integer.parseInt(valor2)));
+                            salida.removeAll(salida);
+                            salida.add(String.valueOf(resultado1));
+                        }
+                    }
                 }
                 int iV=Tarea2_Malf.variables.indexOf(caracteres[0]);
-                if(iV>=0){
-                    if(caracteres[3].equals("+")){
-                        Tarea2_Malf.valores.set(iV, suma(valor1,valor2));
-                    }
-                    if(caracteres[3].equals("-")){
-                        Tarea2_Malf.valores.set(iV, resta(valor1,valor2));
-                    }
-                    if(caracteres[3].equals("*")){
-                        Tarea2_Malf.valores.set(iV, multiplicacion(valor1,valor2));
-                    }
-                    if(caracteres[3].equals("/")){
-                        Tarea2_Malf.valores.set(iV, division(valor1,valor2));
-                    }
-                    if(caracteres[3].equals("%")){
-                        Tarea2_Malf.valores.set(iV, resto(valor1,valor2));
-                    }
-                }   
-            }         
+                Tarea2_Malf.valores.set(iV,BigInteger.valueOf(Integer.parseInt(salida.get(0))));
+            }
         }
         return true;
-    }
-    
-    public BigInteger asignacion(BigInteger variable){
-        return variable;
     }
     
     public BigInteger suma(BigInteger valor1, BigInteger valor2){
