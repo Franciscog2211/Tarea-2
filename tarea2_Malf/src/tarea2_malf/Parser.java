@@ -69,23 +69,35 @@ public class Parser {
 		return true;
 	}
 	//////limite- 
-	public boolean parseD(String sentencia) {//0...9 || e
-		
-		return true;
+	public boolean parseD(char c) {//0...9 || e
+            return c > 47 && c < 58;
 	}
-	public boolean parseNprima(String sentencia) {//Numero | e
-		
-		return true;
+	public boolean parseNprima(String sentencia) {//Numero | e    
+	
+            if(sentencia.length() == 0) {
+            return true;
+        }
+        return parseNumero(sentencia);
 	}
-	public boolean parseCaracter(String sentencia) {//. | , | : | ; | _
+        
+	public boolean parseCaracter(char c ) {//. | , | : | ; | _
 		
-		return true;
+            return c > 33 && c < 46;
 	}
 	public boolean parseWrite(String sentencia) {//write Expresion
 		
 		return true;
 	}
 	public boolean parseRead(String sentencia) {//read Variable
+            String partes [];
+            partes = sentencia.split(" ");
+            if(existeVariable(partes[3])){
+                if (partes[3] != null) {
+                    
+                } else {
+                    System.out.println("Error en la entrada");
+                }
+            }
 		
 		return true;
 	}
