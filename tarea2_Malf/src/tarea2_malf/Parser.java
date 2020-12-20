@@ -97,7 +97,7 @@ public class Parser {
 	public boolean parseC(String sentencia) {// a...z | A...Z  | CARACT | e
 		if((sentencia.charAt(0)>'a'&& sentencia.charAt(0)<'z')
 				|| (sentencia.charAt(0)>'A'&&sentencia.charAt(0)<'Z')
-				|| parseCaracter(sentencia) || parseVacio(sentencia)) {
+				|| parseCaracter(sentencia.charAt(0)) || parseVacio(sentencia)) {
 			System.out.println("ParseC");
 			return true;
 			
@@ -119,7 +119,7 @@ public class Parser {
 			return true;
 		}
 		return false;
-
+	}
 	public boolean parseD(char c) {//0...9 || e
             return c > 47 && c < 58;
 
@@ -133,10 +133,7 @@ public class Parser {
 	}
         
 	public boolean parseCaracter(char c ) {//. | , | : | ; | _
-
-		return false;
-
-            return c > 33 && c < 46;
+		return c > 33 && c < 46;
 
 	}
 	public boolean parseWrite(String sentencia) {//write Expresion
