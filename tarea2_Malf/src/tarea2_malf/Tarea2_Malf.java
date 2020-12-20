@@ -40,7 +40,7 @@ public class Tarea2_Malf {
             Parser parse = new Parser();
             //if ($n < 2) then
             //while ($i <= $n) do
-            if(parse.parseSentencia("if ($n < 2) then")) {
+            if(parse.parseVariable("$n ")) {
             	System.out.println("TRUE");
             }
             else {

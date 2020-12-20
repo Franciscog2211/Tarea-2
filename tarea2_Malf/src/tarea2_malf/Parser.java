@@ -2,16 +2,26 @@ package tarea2_malf;
 
 public class Parser {
 
-	public boolean parseSentencias(String sentencia) {//sentencia; sentenciaPrima
-		//PARSEAR EL ; PARA ESTABLECER EL LIMITE
-		if(parseSentencia(sentencia) && parseSentenciaPrima(sentencia)) {
+	public boolean parseSentencias(String sentencias) {//sentencia; sentenciaPrima
+		int aux=0;
+		for(int i=0; i<sentencias.length(); i++) {
+			if(sentencias.charAt(i)==';') {
+				aux = i;
+				break;
+			}
+		}
+		String sentencia1 = sentencias.substring(0,aux);
+		String sentencia2 = sentencias.substring(aux+1, sentencias.length());
+		if(parseSentencia(sentencia1) && parseSentenciaPrima(sentencia2)) {
 			return true;
 		}
 		return false;
 	}
 	public boolean parseSentenciaPrima(String sentencia) {//sentencias | e
-		
-		return true;
+		if(parseSentencias(sentencia)||parseVacio(sentencia)){
+			return true;
+		}
+		return false;
 	}
 	public boolean parseSentencia(String sentencia) {
 		if (parseExpresion(sentencia) || parseAsignacion(sentencia) || parseWhile(sentencia) || parseIf(sentencia) || parseVacio(sentencia)) {
@@ -21,11 +31,17 @@ public class Parser {
 		
 	}
 	private boolean parseExpresion(String sentencia) {//T E_Prima | e
-		// TODO Auto-generated method stub
+		String partes [] = sentencia.split(" ");
+		if((parseT(partes[0]) && parseEp(sentencia.substring(partes[0].length(), sentencia.length()))) || parseVacio(sentencia)) {
+			return true;
+		}
 		return false;
 	}
 	private boolean parseAsignacion(String sentencia) {//Variable = Expresion
-		// TODO Auto-generated method stub
+		String partes [] = sentencia.split(" ");
+		if(parseVariable(partes[0]) && partes[1]=="=" && parseExpresion(partes[2])) {
+			return true;
+		}
 		return false;
 	}
 	private boolean parseVacio(String sentencia) {
@@ -35,43 +51,73 @@ public class Parser {
 		return true;
 	}
 	
-	public boolean parseEp(String sentencia) {
-		
+	public boolean parseEp(String sentencia) {//+T E_Prima | -T E_Prima | e
+
+		String partes [] = sentencia.split(" ");
+		if((partes[0]=="+" || partes[0]=="-") && parseT(partes[1]) ) {//////PROBLEMAAAAAAAS
+			
+		}
+		System.out.println("ParseEp");
 		return true;
 	}
 	
-	public boolean parseT(String sentencia) {// F Tprima
-		
+	public boolean parseT(String sentencia) {// F Tprima             /////PROBLEMAAAAAAAS
+		System.out.println("ParseT");
 		return true;
 	}
-	public boolean parseTp(String sentencia) {// * F T_Prima | / F T_Prima | % F T_Prima | e
-		
+	public boolean parseTp(String sentencia) {// * F T_Prima | / F T_Prima | % F T_Prima | e /////PROBLEMAAAAAAAS
+		String partes [] = sentencia.split(" ");
+		System.out.println("ParseTp");
 		return true;
 	}
 	public boolean parseF(String sentencia) {// Numero | Variable | e
-		
-		return true;
+		if(parseNumero(sentencia) || parseVariable(sentencia) || parseVacio(sentencia)) {
+			System.out.println("ParseF");
+			return true;
+		}
+		return false;
 	}
 	public boolean parseVariable(String sentencia) {// $Var
-		
-		return true;
+		System.out.println("Inicio ParseVariable "+sentencia);
+		if(sentencia.charAt(0)=='$' && parseVar(sentencia.substring(1,sentencia.length()))) {
+			System.out.println("ParseVariable");
+			return true;
+		}
+		return false;
 	}
 	public boolean parseVar(String sentencia) {// C Var | e
-		
-		return true;
+		System.out.println("IniParseVar"+sentencia);
+		String partes [] = sentencia.split(" ");
+		if(  (parseC(partes[0]) && (partes[1].length()==0 || parseVar(sentencia.substring(partes[0].length(), sentencia.length()))) || parseVacio(sentencia)) ) {
+			System.out.println("ParseVar");
+			return true;
+		}
+		return false;
 	}
 	public boolean parseC(String sentencia) {// a...z | A...Z  | CARACT | e
-	
-		return true;
+		if((sentencia.charAt(0)>'a'&& sentencia.charAt(0)<'z')
+				|| (sentencia.charAt(0)>'A'&&sentencia.charAt(0)<'Z')
+				|| parseCaracter(sentencia) || parseVacio(sentencia)) {
+			System.out.println("ParseC");
+			return true;
+			
+		}
+		return false;
 	}
 	public boolean parseNumero(String sentencia) {//D Nprima
-		
-		return true;
+		if(parseD(sentencia.substring(0,1)) && parseNprima(sentencia.substring(1,sentencia.length()))) {
+			System.out.println("ParseNumero");
+			return true;
+		}
+		return false;
 	}
 	//////limite- 
 	public boolean parseD(String sentencia) {//0...9 || e
-		
-		return true;
+		if(sentencia.charAt(0)>='0' && sentencia.charAt(0)<='9') {
+			System.out.println("ParseD");
+			return true;
+		}
+		return false;
 	}
 	public boolean parseNprima(String sentencia) {//Numero | e
 		
@@ -79,7 +125,7 @@ public class Parser {
 	}
 	public boolean parseCaracter(String sentencia) {//. | , | : | ; | _
 		
-		return true;
+		return false;
 	}
 	public boolean parseWrite(String sentencia) {//write Expresion
 		
