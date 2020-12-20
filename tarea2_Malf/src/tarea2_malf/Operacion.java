@@ -50,10 +50,7 @@ public class Operacion {
             //EN CASO DE OPERACIONES
             else{
                 ArrayList<String> salida= new ArrayList<>();
-                System.out.println("llegue hasta aqui");
                 for(int a=caracteres.length-1; a>=2; a--){
-                    System.out.println("valor de a: "+a);
-                    System.out.println("entre aqui al for ");
                     BigInteger valor= new BigInteger("0");
                     if(caracteres[a].contains("$")){
                         int n=Tarea2_Malf.variables.indexOf(caracteres[a]);
@@ -85,7 +82,6 @@ public class Operacion {
                     if(caracteres[a].equals("%")){
                         salida.add("%");
                     }
-                    System.out.println("salida: "+salida);
                     if(salida.size()==3){
                         String valor1= salida.get(0);
                         String valor2= salida.get(2);
