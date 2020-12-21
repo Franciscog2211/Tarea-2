@@ -53,22 +53,62 @@ public class Parser {
 	
 	public boolean parseEp(String sentencia) {//+T E_Prima | -T E_Prima | e
 
-		String partes [] = sentencia.split(" ");
-		if((partes[0]=="+" || partes[0]=="-") && parseT(partes[1]) ) {//////PROBLEMAAAAAAAS
-			
-		}
-		System.out.println("ParseEp");
-		return true;
+		if(sentencia.charAt(0) == '+'){
+                    parseT(Character.toString(sentencia.charAt(1)));
+                    String E_prima = " ";
+                    for (int i = 2; i < sentencia.length()-1; i++) {
+                        E_prima += sentencia.charAt(i);        
+                     }
+                return parseEp(E_prima);  
+                }
+                else if(sentencia.charAt(0) == '-'){
+                    parseT(Character.toString(sentencia.charAt(1)));
+                    String E_prima = " ";
+                    for (int i = 2; i < sentencia.length()-1; i++) {
+                       E_prima += sentencia.charAt(i);         
+                    }
+                     return parseEp(E_prima);
+                }
+                return false;
 	}
 	
 	public boolean parseT(String sentencia) {// F Tprima             /////PROBLEMAAAAAAAS
-		System.out.println("ParseT");
-		return true;
+		if(parseF(Character.toString(sentencia.charAt(1))) && parseTp(sentencia.substring(1,sentencia.length()))){
+                    return true;
+                }
+		return false;
 	}
 	public boolean parseTp(String sentencia) {// * F T_Prima | / F T_Prima | % F T_Prima | e /////PROBLEMAAAAAAAS
-		String partes [] = sentencia.split(" ");
-		System.out.println("ParseTp");
-		return true;
+		
+		if(sentencia.charAt(0) == '*'){
+                    parseT(Character.toString(sentencia.charAt(1)));
+                    String E_prima = " ";
+                    for (int i = 2; i < sentencia.length()-1; i++) {
+                        E_prima += sentencia.charAt(i);
+                    
+                    }
+               	    return parseTp(E_prima);
+                }
+                else if(sentencia.charAt(0) == '/'){
+                    parseT(Character.toString(sentencia.charAt(1)));
+                    String E_prima = " ";
+                    for (int i = 2; i < sentencia.length()-1; i++) {
+                        E_prima += sentencia.charAt(i);
+                    
+                    }
+                    return parseTp(E_prima);
+                }
+                else if(sentencia.charAt(0) == '%'){
+                    parseT(Character.toString(sentencia.charAt(1)));
+                    String E_prima = " ";
+                    for (int i = 2; i < sentencia.length()-1; i++) {
+                        E_prima += sentencia.charAt(i);
+                    
+                    }
+                    return parseTp(E_prima);
+                }
+            
+                return false;
 	}
 	public boolean parseF(String sentencia) {// Numero | Variable | e
 		if(parseNumero(sentencia) || parseVariable(sentencia) || parseVacio(sentencia)) {
