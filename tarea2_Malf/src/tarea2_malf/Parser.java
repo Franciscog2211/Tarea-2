@@ -24,7 +24,7 @@ public class Parser {
 		return false;
 	}
 	public boolean parseSentencia(String sentencia) {
-		if (parseExpresion(sentencia) || parseAsignacion(sentencia) || parseWhile(sentencia) || parseIf(sentencia) || parseVacio(sentencia)) {
+		if (parseExpresion(sentencia) || parseAsignacion(sentencia) || parseWhile(sentencia) || parseIf(sentencia) || parseVacio(sentencia)  || parseRead(sentencia)  || parseWrite(sentencia)) {
 			return true;
 		}
 		return false;
@@ -78,18 +78,18 @@ public class Parser {
 		return false;
 	}
 	public boolean parseVariable(String sentencia) {// $Var
-		System.out.println("Inicio ParseVariable "+sentencia);
+		//System.out.println("Inicio ParseVariable "+sentencia);
 		if(sentencia.charAt(0)=='$' && parseVar(sentencia.substring(1,sentencia.length()))) {
-			System.out.println("ParseVariable");
+			//System.out.println("ParseVariable");
 			return true;
 		}
 		return false;
 	}
 	public boolean parseVar(String sentencia) {// C Var | e
-		System.out.println("IniParseVar"+sentencia);
+		//System.out.println("IniParseVar"+sentencia);
 		String partes [] = sentencia.split(" ");
 		if(  (parseC(partes[0]) && (partes[1].length()==0 || parseVar(sentencia.substring(partes[0].length(), sentencia.length()))) || parseVacio(sentencia)) ) {
-			System.out.println("ParseVar");
+			//System.out.println("ParseVar");
 			return true;
 		}
 		return false;
@@ -98,7 +98,7 @@ public class Parser {
 		if((sentencia.charAt(0)>'a'&& sentencia.charAt(0)<'z')
 				|| (sentencia.charAt(0)>'A'&&sentencia.charAt(0)<'Z')
 				|| parseCaracter(sentencia.charAt(0)) || parseVacio(sentencia)) {
-			System.out.println("ParseC");
+			//System.out.println("ParseC");
 			return true;
 			
 		}
@@ -106,7 +106,7 @@ public class Parser {
 	}
 	public boolean parseNumero(String sentencia) {//D Nprima
 		if(parseD(sentencia.substring(0,1)) && parseNprima(sentencia.substring(1,sentencia.length()))) {
-			System.out.println("ParseNumero");
+			//System.out.println("ParseNumero");
 			return true;
 		}
 		return false;
@@ -137,21 +137,38 @@ public class Parser {
 
 	}
 	public boolean parseWrite(String sentencia) {//write Expresion
-		
-		return true;
+		String partes [];
+        partes = sentencia.split(" ");
+        if((partes[0].charAt(0)=='w')){
+        	if((partes[0].charAt(1)=='r')){
+        		if((partes[0].charAt(2)=='i')){
+        			if((partes[0].charAt(3)=='t')){
+        				if((partes[0].charAt(4)=='e')){
+	                        if (parseExpresion(partes[1])){
+	                        	return true;
+	                        }
+        				}
+                    } 
+                } 
+            }
+        }
+		return false;
 	}
 	public boolean parseRead(String sentencia) {//read Variable
-            String partes [];
-            partes = sentencia.split(" ");
-            if(existeVariable(partes[3])){
-                if (partes[3] != null) {
-                    
-                } else {
-                    System.out.println("Error en la entrada");
-                }
+        String partes [];
+        partes = sentencia.split(" ");
+        if((partes[0].charAt(0)=='r')){
+        	if((partes[0].charAt(1)=='e')){
+        		if((partes[0].charAt(2)=='a')){
+        			if((partes[0].charAt(3)=='d')){
+                        if (parseVariable(partes[1])){
+                        	return true;
+                        }
+                    } 
+                } 
             }
-		
-		return true;
+        }
+		return false;
 	}
 	public boolean parseWhile(String sentencia) {
 		//while ($i <= $n) do
@@ -186,6 +203,8 @@ public class Parser {
 				}
 				if(sentencia.charAt(i+2)=='d'){
 					if(sentencia.charAt(i+3)=='o'){
+						i=i+3;
+						aux = i;
 					}
 					else {
 						return false;
@@ -193,6 +212,17 @@ public class Parser {
 				}
 				else {
 					return false;
+				}
+			}
+			if(sentencia.charAt(i)=='w') {
+				if(sentencia.charAt(i+1)=='e') {
+					if(sentencia.charAt(2)=='n') {
+						if(sentencia.charAt(3)=='d') {
+							if(!parseSentencias(sentencia.substring(aux, i))) {
+								return false;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -227,6 +257,7 @@ public class Parser {
 					if(sentencia.charAt(i+3)=='h'){
 						if(sentencia.charAt(i+4)=='e'){
 							if(sentencia.charAt(i+5)!='n'){
+								aux=i+5;
 								return false;
 							}
 						}
@@ -240,6 +271,19 @@ public class Parser {
 				}
 				else {
 					return false;
+				}
+				if(sentencia.charAt(i)=='e') {
+					if(sentencia.charAt(i+1)=='n') {
+						if(sentencia.charAt(2)=='d') {
+							if(sentencia.charAt(2)=='i') {
+								if(sentencia.charAt(3)=='f') {
+									if(!parseSentencias(sentencia.substring(aux, i))) {
+										return false;
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}

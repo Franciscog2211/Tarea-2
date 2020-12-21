@@ -40,12 +40,14 @@ public class Tarea2_Malf {
             Parser parse = new Parser();
             //if ($n < 2) then
             //while ($i <= $n) do
+            /*
             if(parse.parseVariable("$n ")) {
             	System.out.println("TRUE");
             }
             else {
             	System.out.println("FALSE");
             }
+            */
             if(!sintaxis.analisisExpresion(expresion)){
                 System.out.println("Error de sintaxis");
                 //return;
