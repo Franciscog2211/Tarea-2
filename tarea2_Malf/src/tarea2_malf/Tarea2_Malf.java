@@ -31,8 +31,6 @@ public class Tarea2_Malf {
         do{
             String expresion = sc.nextLine();
             Sintaxis sintaxis = new Sintaxis();
-            Semantica semantica = new Semantica();
-            Errores errores = new Errores();
             variables.add("$a");
             valores.add(new BigInteger("3"));
             variables.add("$b");
